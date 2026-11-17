@@ -1,0 +1,26 @@
+# Experimental Configuration: Controlled Claim-Level Citation Drift Verification
+seed: 42
+sample_size: 100
+device: "cpu"
+batch_size: 16
+
+dataset:
+  primary: "allenai/scifact"
+  fallback: "allenai/scitail"
+  split: "test"
+
+baseline_system:
+  name: "System 0: Lexical Jaccard Baseline"
+  type: "token_jaccard"
+  threshold_support: 0.15
+
+verifier_system:
+  name: "System 1: Pretrained NLI Cross-Encoder"
+  model_name: "cross-encoder/nli-distilroberta-base"
+  max_length: 256
+  temperature: 0.0
+
+classes:
+  0: "CONTRADICT"
+  1: "NO_EVIDENCE"
+  2: "SUPPORT"
